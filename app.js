@@ -12,12 +12,16 @@ const port = 3000
 
 const app = express();
 
-async function dbTest () {
-    await db.sequelize.authenticate()
-    console.log('Connection to the database successful!')
-}
 
-dbTest()
+(async () => {
+    try {
+        await db.sequelize.authenticate()
+        await db.sequelize.sync()
+        console.log('Connection to the database successful!')
+    } catch (error) {
+        console.error('Error connecting to the database: ', error)
+    }
+})()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
