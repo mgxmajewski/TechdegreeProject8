@@ -12,10 +12,16 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-  };
+  }
   Book.init({
-    title: DataTypes.STRING,
-    author: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    author: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     genre: DataTypes.STRING,
     year: DataTypes.INTEGER
   }, {
@@ -23,4 +29,4 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Book',
   });
   return Book;
-};
+}
