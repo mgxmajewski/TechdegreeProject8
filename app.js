@@ -45,16 +45,21 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+// Handles errors
+app.use((err, req, res, next) => {
+    // Ensure the err object has status and message properties defined
+    err.status = err.status || 500;
+    err.message = err.message || 'Server error';
+    res.status(err.status);
+    if (res.statusCode === 404) {
+        console.log("I'm sorry, page not found;(");
+        res.render('page-not-found', { err });
+    } else {
+        console.log("I'm sorry, server error;(");
+        res.render('error', { err });
+    }
 });
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
