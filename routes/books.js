@@ -22,9 +22,9 @@ router.get('/new', (req, res) =>{
   res.render('books/new', {book: {}, title: 'New book'})
 });
 
-/* Create a new book entry */
-router.get('/new', (req, res) =>{
-  res.render('books/new', {book: {}, title: 'New book'})
+/* POST create book */
+router.post('/', (req, res) =>{
+  res.render('/books/')
 });
 
 /* Edit book */
