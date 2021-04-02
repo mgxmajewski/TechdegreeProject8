@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Book = require('../models').Book
 
 function asyncHandler(cb) {
   return async (req, res, next) => {
@@ -12,8 +13,8 @@ function asyncHandler(cb) {
 }
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', asyncHandler(async (req, res) => {
   res.send('respond with a resource');
-});
+}));
 
 module.exports = router;
