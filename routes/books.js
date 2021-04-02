@@ -17,4 +17,9 @@ router.get('/', asyncHandler(async (req, res) => {
   res.send('respond with a resource');
 }));
 
+/* Create a new book entry */
+router.get('/new', (req, res) =>{
+  res.render('books/new', {book: {}, title: 'New book'})
+});
+
 module.exports = router;
