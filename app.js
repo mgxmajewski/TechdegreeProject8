@@ -6,22 +6,22 @@ const logger = require('morgan');
 
 const db = require('./models/index')
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/books');
+const routes = require('./routes/index');
+const books = require('./routes/books');
 const port = 3000
 
 const app = express();
 
 
-(async () => {
-    try {
-        await db.sequelize.authenticate()
-        await db.sequelize.sync()
-        console.log('Connection to the database successful!')
-    } catch (error) {
-        console.error('Error connecting to the database: ', error)
-    }
-})()
+// (async () => {
+//     try {
+//         await db.sequelize.authenticate()
+//         await db.sequelize.sync()
+//         console.log('Connection to the database successful!')
+//     } catch (error) {
+//         console.error('Error connecting to the database: ', error)
+//     }
+// })()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,8 +33,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', routes);
+app.use('/books', books);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
