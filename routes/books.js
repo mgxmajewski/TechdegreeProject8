@@ -14,8 +14,8 @@ function asyncHandler(cb) {
 
 /* GET users listing. */
 router.get('/', asyncHandler(async (req, res) => {
-  res.send('respond with a resource');
-}));
+  res.render('index', {books:{}, title: "Test"})
+}))
 
 /* Create a new book entry */
 router.get('/new', (req, res) =>{
