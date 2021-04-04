@@ -31,7 +31,12 @@ router.post('/new', asyncHandler(async (req, res) =>{
 
 /* Show book details */
 router.get('/:id', asyncHandler( async(req, res) =>{
-  res.render('update-book', {book: {}, title: 'Book Details'})
+  const book = await Book.findByPk(req.params.id);
+  if(book) {
+    res.render("update-book", { book, title: book.title });
+  } else {
+    res.sendStatus(404);
+  }
 }));
 
 /* Show book details */
