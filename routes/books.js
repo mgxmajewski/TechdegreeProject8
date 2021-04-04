@@ -14,7 +14,8 @@ function asyncHandler(cb) {
 
 /* GET users listing. */
 router.get('/', asyncHandler(async (req, res) => {
-  res.render('index', {books:{}, title: "Test"})
+  const books = await Book.findAll()
+  res.render('index', {books, title: "Test title"})
 }))
 
 /* Create a new book entry */

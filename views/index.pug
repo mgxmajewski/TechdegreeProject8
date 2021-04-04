@@ -1,5 +1,6 @@
 extends layout
 
 block content
-  h1= 'index'
-  p Welcome to 'index'
+  each book in books
+    article
+      h3= book.title
