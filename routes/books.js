@@ -24,14 +24,28 @@ router.get('/new', (req, res) =>{
 });
 
 /* POST create book */
-router.post('books/new', asyncHandler(async (req, res) =>{
+router.post('/new', asyncHandler(async (req, res) =>{
   const book = await Book.create(req.body)
   res.redirect('/books/')
 }))
 
-/* Edit book */
-router.get('/:id/edit', asyncHandler( async(req, res) =>{
-  res.render('books/edit', {book: {}, title: 'Edit book'})
+/* Show book details */
+router.get('/:id', asyncHandler( async(req, res) =>{
+  res.render('update-book', {book: {}, title: 'book details'})
+}));
+
+/* Show book details */
+router.post('/:id', asyncHandler( async(req, res) =>{
+  res.redirect('/books/')
+}));
+
+/* Show book details */
+router.post('/:id', asyncHandler( async(req, res) =>{
+  res.redirect('/books/')
+}));
+
+router.post('/:id/delete', asyncHandler( async(req, res) =>{
+  res.redirect('/books/')
 }));
 
 
