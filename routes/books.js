@@ -31,7 +31,7 @@ router.post('/new', asyncHandler(async (req, res) =>{
 
 /* Show book details */
 router.get('/:id', asyncHandler( async(req, res) =>{
-  res.render('update-book', {book: {}, title: 'book details'})
+  res.render('update-book', {book: {}, title: 'Book Details'})
 }));
 
 /* Show book details */
