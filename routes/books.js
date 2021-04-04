@@ -55,7 +55,6 @@ router.post('/:id', asyncHandler( async(req, res) =>{
     }
   } catch (err) {
     if (err.name === "SequelizeValidationError") {
-
       book = await Book.build(req.body);
       book.id = req.params.id;
       res.render("update-book", { book, errors: err.errors, title: "Book details" });
@@ -67,7 +66,13 @@ router.post('/:id', asyncHandler( async(req, res) =>{
 
 /* Delete book */
 router.post('/:id/delete', asyncHandler( async(req, res) =>{
-  res.redirect('/books/')
+  const book = await Book.findByPk(req.params.id);
+  if(book) {
+    await book.destroy();
+    res.redirect("/books/");
+  } else {
+    res.sendStatus(404);
+  }
 }));
 
 
