@@ -13,10 +13,12 @@ function asyncHandler(cb) {
   }
 }
 
-
+router.get('/', (req, res) =>{
+    res.redirect('/books/query?page=0&search=')
+});
 
 /* GET users listing. */
-router.get('/', asyncHandler(async (req, res, next) => {
+router.get('/query', asyncHandler(async (req, res) => {
 
     let query = ''
     let queryFromParam = req.query.search
