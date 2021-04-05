@@ -3,11 +3,11 @@ extends layout
 block content
   h1 Books
 
-  form(action='/books/')
-    input(type='text' placeholder=`${query}` name='search')
-    p
+  form(action='/books/query')
+    input.searchbar(type='text' placeholder=`${query}` name='search')
+    p.searchbar
       input(type='submit' value='Search' )
-    p
+    p.searchbar
       a.button(href='/books/?page=0&search=') Clear Search
 
   p
