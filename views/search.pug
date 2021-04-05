@@ -1,0 +1,42 @@
+extends layout
+
+block content
+    h1 Books
+
+    form(action='/books/search')
+        input(type='text' placeholder='Search..' name='search')
+        p
+            input(type='submit' value='Search' )
+
+    p
+        a.button(href='/books/') Back
+    table
+        thead
+            tr
+                th Title
+                th Author
+                th Genre
+                th Year
+        tbody
+            each book in books
+                book
+                tr
+                    td
+                        a(href='/books/'+ book.id)= book.title
+                    td= book.author
+                    td= book.genre
+                    td= book.year
+                tr
+
+    // Render pagination source: https://stackoverflow.com/questions/61838202/nodejs-pagination
+    ul.pagination
+        if current >= 1
+            li.pagination
+                a.pagination(href=`?page=${parseInt(current) - 1}`) Previous
+        - var i = 1
+        while i <= pages
+            li.pagination
+                a.pagination(href=`?page=${i-1}`)= i++
+        if current < (pages-1)
+            li.pagination
+                a.pagination(href=`?page=${parseInt(current) + 1}`) Next
