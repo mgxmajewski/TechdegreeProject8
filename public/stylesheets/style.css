@@ -103,6 +103,12 @@ input[type=text] {
   text-decoration: none;
 }
 
+.searchbar {
+  display: inline-block;
+  padding: 8px 16px;
+
+}
+
 .error {
   color: rgb(236, 15, 15);
 }
