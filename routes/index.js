@@ -1,16 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-
-
-/* GET home page. */
+/* Redirect route for initial query. */
 router.get('/', function(req, res, next) {
-  // res.render('index', { title: 'Express' });
-  //   (async () => {
-  //       const books = await Book.findAll()
-  //       res.json(books)
-  //       console.log(books)
-  //   })()
     res.redirect(`/books/?page=0&search=`)
 });
 
