@@ -1,14 +1,18 @@
 extends layout
 
 block content
-  h1 Books
+
+  h1 Search for Books
 
   form(action='/books/query')
+    label(for='search') Search
     input.searchbar(type='text' placeholder=`${query}` name='search')
-    p.searchbar
+
+    p
       input(type='submit' value='Search' )
-    p.searchbar
-      a.button(href='/books/?page=0&search=') Clear Search
+    a.button(href='/books/?page=0&search=') Clear Search
+
+  h1 Books List
 
   p
     a.button(href='/books/new') Create New Book
