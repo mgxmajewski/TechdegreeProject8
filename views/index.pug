@@ -2,8 +2,17 @@ extends layout
 
 block content
   h1 Books
+
+  form(action='/books/')
+    input(type='text' placeholder=`${query}` name='search')
+    p
+      input(type='submit' value='Search' )
+    p
+      a.button(href='/books/?page=0&search=') Clear Search
+
   p
     a.button(href='/books/new') Create New Book
+
   table
     thead
       tr
@@ -22,14 +31,15 @@ block content
           td= book.year
         tr
 
+  // Render pagination source: https://stackoverflow.com/questions/61838202/nodejs-pagination
   ul.pagination
     if current >= 1
       li.pagination
-        a.pagination(href=`?page=${parseInt(current) - 1}`) Previous
+        a.pagination(href=`?page=${parseInt(current) - 1}&search=${query}`) Previous
     - var i = 1
     while i <= pages
       li.pagination
-        a.pagination(href=`?page=${i-1}`)= i++
+        a.pagination(href=`?page=${i-1}&search=${query}`)= i++
     if current < (pages-1)
       li.pagination
-        a.pagination(href=`?page=${parseInt(current) + 1}`) Next
+        a.pagination(href=`?page=${parseInt(current) + 1}&search=${query}`) Next
