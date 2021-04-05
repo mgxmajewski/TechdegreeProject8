@@ -21,3 +21,15 @@ block content
           td= book.genre
           td= book.year
         tr
+
+  ul.pagination
+    if current > 1
+      li.pagination
+        a.pagination(href=`?page=${parseInt(current) - 1}`) Previous
+    - var i = 1
+    while i <= pages
+      li.pagination
+        a.pagination(href=`?page=${i}`)= i++
+    if current < pages
+      li.pagination
+        a.pagination(href=`?page=${parseInt(current) + 1}`) Next
