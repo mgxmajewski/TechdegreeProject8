@@ -92,6 +92,7 @@ input[type=text] {
   width: 300px;
 }
 
+/*https://www.w3schools.com/css/css3_pagination.asp*/
 .pagination {
   display: inline-block;
 }
