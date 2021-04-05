@@ -23,13 +23,13 @@ block content
         tr
 
   ul.pagination
-    if current > 1
+    if current >= 1
       li.pagination
         a.pagination(href=`?page=${parseInt(current) - 1}`) Previous
     - var i = 1
     while i <= pages
       li.pagination
         a.pagination(href=`?page=${i}`)= i++
-    if current < pages
+    if current < (pages-1)
       li.pagination
         a.pagination(href=`?page=${parseInt(current) + 1}`) Next
