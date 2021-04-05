@@ -29,7 +29,7 @@ block content
     - var i = 1
     while i <= pages
       li.pagination
-        a.pagination(href=`?page=${i}`)= i++
+        a.pagination(href=`?page=${i-1}`)= i++
     if current < (pages-1)
       li.pagination
         a.pagination(href=`?page=${parseInt(current) + 1}`) Next
