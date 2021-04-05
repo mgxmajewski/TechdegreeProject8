@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Book = require('../models').Book
+const {Op} = require("sequelize")
 
 function asyncHandler(cb) {
   return async (req, res, next) => {
@@ -12,36 +13,57 @@ function asyncHandler(cb) {
   }
 }
 
+
+
 /* GET users listing. */
-router.get('/', asyncHandler(async (req, res) => {
+router.get('/', asyncHandler(async (req, res, next) => {
 
+    let query = ''
+    let queryFromParam = req.query.search
+
+    if(queryFromParam.length > 0){
+        console.log(queryFromParam)
+        query = queryFromParam;
+    }
+    // Pagination setup - number of books per page
+    let size = 4;
+    // Pagination solution source: https://www.youtube.com/watch?v=QoI_F_Fj8Lo
     const pageAsNumber = Number.parseInt(req.query.page);
-    const sizeAsNumber = Number.parseInt(req.query.size);
-
-    console.log(pageAsNumber)
-    console.log(sizeAsNumber)
-
-
+    // Parse number from query
     let page = 0;
     if(!Number.isNaN(pageAsNumber) && pageAsNumber > 0){
         page = pageAsNumber;
     }
 
-    let size = 3;
-    if(!Number.isNaN(sizeAsNumber) && !(sizeAsNumber > 10) && !(sizeAsNumber < 1)){
-        size = sizeAsNumber;
-    }
-
     const books = await Book.findAndCountAll({
+        where: {
+            [Op.or]: [
+                {title: {
+                        [Op.substring]: query,
+                    }},
+                {author: {
+                        [Op.substring]: query,
+                    }},
+                {genre: {
+                        [Op.substring]: query,
+                    }},
+                {year: {
+                        [Op.substring]: query,
+                    }},
+            ],
+        },
+        // order: [["id", "ASC"]],
         limit: size,
         offset: page * size
     })
-    console.log(books)
+
     res.render('index', {
         books: books.rows,
+        query,
         current: page,
-        totalPages: Math.ceil(books.count / Number.parseInt(size)),
+        pages: Math.ceil(books.count / Number.parseInt(size)),
         title: "Test title"})
+        // .redirect(`?page=0&search=`)
 }))
 
 /* Create a new book entry */
