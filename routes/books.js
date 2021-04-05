@@ -14,8 +14,34 @@ function asyncHandler(cb) {
 
 /* GET users listing. */
 router.get('/', asyncHandler(async (req, res) => {
-  const books = await Book.findAll()
-  res.render('index', {books, title: "Test title"})
+
+    const pageAsNumber = Number.parseInt(req.query.page);
+    const sizeAsNumber = Number.parseInt(req.query.size);
+
+    console.log(pageAsNumber)
+    console.log(sizeAsNumber)
+
+
+    let page = 0;
+    if(!Number.isNaN(pageAsNumber) && pageAsNumber > 0){
+        page = pageAsNumber;
+    }
+
+    let size = 3;
+    if(!Number.isNaN(sizeAsNumber) && !(sizeAsNumber > 10) && !(sizeAsNumber < 1)){
+        size = sizeAsNumber;
+    }
+
+    const books = await Book.findAndCountAll({
+        limit: size,
+        offset: page * size
+    })
+    console.log(books)
+    res.render('index', {
+        books: books.rows,
+        current: page,
+        totalPages: Math.ceil(books.count / Number.parseInt(size)),
+        title: "Test title"})
 }))
 
 /* Create a new book entry */
